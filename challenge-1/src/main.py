@@ -22,9 +22,21 @@ def decode_message(message):
     
     return decoded_message
 
-with open('../data/Message_01.txt', 'r') as file:
-    message = file.read()
+import sys
 
-result = decode_message(message=message)
+if len(sys.argv) != 2:
+    print("Uso: python script.py <ruta_del_archivo>")
+    sys.exit(1)
+
+file_path = sys.argv[1]
+
+try:
+    with open(file_path, 'r') as file:
+        message = file.read()
+except FileNotFoundError:
+    print("El archivo no se encontró en la ruta especificada.")
+    sys.exit(1)
+
+result = decode_message(message)
 
 print(result)
