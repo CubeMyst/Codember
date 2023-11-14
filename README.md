@@ -1,6 +1,6 @@
 # 👨‍💻 Codember
 
-Solución de desafíos hecho de el juego Codember creado por [@midudev](https://github.com/midudev).
+Solución de desafíos del juego Codember creado por [@midudev](https://github.com/midudev).
 
 ## Reto #1 - Mensaje Secreto
 
