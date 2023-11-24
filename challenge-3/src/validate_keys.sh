@@ -13,24 +13,24 @@ is_valid_key() {
     local policy=$1
     local key=$2
 
-    IFS=' ' read -r -a policy_array <<< "$policy"
-    IFS='-' read -r min max <<< "${policy_array[0]}"
+    IFS=' ' read -r -a policy_array <<<"$policy"
+    IFS='-' read -r min max <<<"${policy_array[0]}"
     char="${policy_array[1]::1}"
 
-    count=$(grep -o "$char" <<< "$key" | wc -l)
+    count=$(grep -o "$char" <<<"$key" | wc -l)
 
     if ((count >= min && count <= max)); then
-        return 0  # Valid key
+        return 0 # Valid key
     else
-        return 1  # Invalid key
+        return 1 # Invalid key
     fi
 }
 
 # Read the file line by line
 invalid_count=0
 while IFS= read -r line; do
-    IFS=':' read -r policy key <<< "$line"
-    
+    IFS=':' read -r policy key <<<"$line"
+
     if ! is_valid_key "$policy" "$key"; then
         ((invalid_count++))
 
@@ -40,6 +40,6 @@ while IFS= read -r line; do
             exit
         fi
     fi
-done < "$filename"
+done <"$filename"
 
-echo "Number of valid keys: $(( $(wc -l < "$filename") - invalid_count ))"
+echo "Number of valid keys: $(($(wc -l <"$filename") - invalid_count))"
