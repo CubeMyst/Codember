@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync } from "node:fs";
 
 interface Policy {
   minCount: number;
@@ -8,16 +8,16 @@ interface Policy {
 
 function isValidPassword(policy: Policy, password: string): boolean {
   const { minCount, maxCount, char } = policy;
-  const count = password.split(char).length - 1;
+  const count: number = password.split(char).length - 1;
   return minCount <= count && count <= maxCount;
 }
 
 function findInvalidKey(data: string[]): string {
   const invalidKey: string[] = [];
 
-  data.forEach((line) => {
+  data.forEach((line: string): void => {
     const [policyStr, password] = line.split(":");
-    const trimmedPassword = password.trim();
+    const trimmedPassword: string = password.trim();
 
     const [counts, char] = policyStr.split(" ");
     const [minCount, maxCount] = counts.split("-").map(Number);
@@ -33,9 +33,12 @@ function findInvalidKey(data: string[]): string {
 }
 
 function main() {
-  const data = readFileSync('../data/encryption_policies.txt', 'utf-8').split('\n');
+  const data: string[] = readFileSync(
+    "../data/encryption_policies.txt",
+    "utf-8"
+  ).split("\n");
 
-  const invalidKey = findInvalidKey(data);
+  const invalidKey: string = findInvalidKey(data);
 
   if (invalidKey) {
     console.log(`The 42nd invalid key is: ${invalidKey}`);
